@@ -11,17 +11,17 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TestGroup extends ResumableCommandGroup {
+public class AnotherGroup extends ResumableCommandGroup {
   /** Creates a new TestGroup. */
-  public TestGroup() {
+  public AnotherGroup() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new WaitCommand(3).withName("Steve"),
-      new PrintCommand("SecondCommand").withName("Mjolner"),
-      new WaitCommand(4).withName("Josh"),
-      new PrintCommand("FourthCommand").withName("Tuba"),
-      new WaitCommand(3.5).withName("UpDog")
+      new WaitCommand(2).withName("Alex"),
+      new PrintCommand("SecondThing").withName("Susan"),
+      new WaitCommand(5).withName("Willow"),
+      new PrintCommand("FourthThing").withName("Flute"),
+      new WaitCommand(2).withName("DownDog")
     );
   }
 }
