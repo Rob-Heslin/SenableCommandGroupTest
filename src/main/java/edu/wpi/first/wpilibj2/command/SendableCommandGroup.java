@@ -32,7 +32,7 @@ public class SendableCommandGroup extends CommandGroupBase {
 
   @Override
   public final void addCommands(Command... commands) {
-    if(this.getCurrentCommandIndex() == -20){
+    if(this.getCurrentCommandIndex() < -1){
         this.setCurrentCommandIndex(-1);
     }
 
@@ -59,12 +59,15 @@ public class SendableCommandGroup extends CommandGroupBase {
 
   @Override
   public void initialize() {
-    if(getCurrentCommandIndex() <= -1) {
+    int currentCommandIndex = getCurrentCommandIndex();
+    if(currentCommandIndex <= -1) {
       setCurrentCommandIndex(0);
+    }else if(currentCommandIndex > m_commands.size()){
+      return;
     }
   
     if (!m_commands.isEmpty()) {
-      m_commands.get(getCurrentCommandIndex()).initialize();
+      m_commands.get(currentCommandIndex).initialize();
     }
   }
 
@@ -88,11 +91,12 @@ public class SendableCommandGroup extends CommandGroupBase {
 
   @Override
   public void end(boolean interrupted) {
+    int currentCommandIndex = getCurrentCommandIndex();
     if (interrupted
         && !m_commands.isEmpty()
-        && getCurrentCommandIndex() > -1
-        && getCurrentCommandIndex() < m_commands.size()) {
-      m_commands.get(getCurrentCommandIndex()).end(true);
+        && currentCommandIndex > -1
+        && currentCommandIndex < m_commands.size()) {
+      m_commands.get(currentCommandIndex).end(true);
     }else{
       setCurrentCommandIndex(-1);
     }
@@ -100,7 +104,7 @@ public class SendableCommandGroup extends CommandGroupBase {
 
   @Override
   public boolean isFinished() {
-    return getCurrentCommandIndex() == m_commands.size();
+    return getCurrentCommandIndex() >= m_commands.size();
   }
 
   @Override
@@ -115,13 +119,20 @@ public class SendableCommandGroup extends CommandGroupBase {
   protected final int getCurrentCommandIndex(){
       return (int) SmartDashboard.getNumber(this.getName()+"CurrentCommandIndex",-20);
   }
+
   protected final void itterateCurrentCommandIndex(){
       setCurrentCommandIndex( getCurrentCommandIndex() + 1 );
   }
 
-//   public final CommandBase itterateFoward(){
-//       return new InstantCommand(()->{
+  public final CommandBase itterateFoward(){
+      return new ItterateForwardCommand();//don't think this works, need to test
+  }
 
-//       });
-//   }
+  public class ItterateForwardCommand extends InstantCommand{
+    public ItterateForwardCommand(){}
+    @Override
+    public void initialize(){
+      itterateCurrentCommandIndex();
+    }
+  }
 }
