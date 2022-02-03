@@ -32,22 +32,24 @@ public class SendableCommandGroup extends CommandGroupBase {
 
   @Override
   public final void addCommands(Command... commands) {
-    if(this.getCurrentCommandIndex() < -1){
-        this.setCurrentCommandIndex(-1);
+    //if the currentCommandIndex is less than -1(say -20, the boot param) set the index to -1
+    if(getCurrentCommandIndex() < -1){
+        setCurrentCommandIndex(-1);
     }
-
-    //TODO: check to see if a different version of this commandgroup exists with different commands, throw error if true
-    // if(SmartDashboard.getBoolean(this.getName() + "CommandExists", false)){
-    //     throw new IllegalStateException(
-    //         "SendableCommands can only be Constructed once");
-    // }
+    //ungroup commands like normal
     requireUngrouped(commands);
 
-    if (SmartDashboard.getNumber(this.getName()+"CurrentCommandIndex",-1) != -1) {
+    //stop the addition of commands if the command is running
+    if (getCurrentCommandIndex() > -1) {
       throw new IllegalStateException(
           "Commands cannot be added to a CommandGroup while the group is running");
     }
-
+    
+    //TODO: check to see if a different version of this commandgroup exists with different commands, throw error if true
+    // if(SmartDashboard.getBoolean(this.getName() + "CommandExists", false)){
+    //     throw new IllegalStateException(
+    //         "SendableCommands can only be constructed as one set of commands");
+    // }
     registerGroupedCommands(commands);
 
     for (Command command : commands) {
@@ -55,6 +57,7 @@ public class SendableCommandGroup extends CommandGroupBase {
       m_requirements.addAll(command.getRequirements());
       m_runWhenDisabled &= command.runsWhenDisabled();
     }
+    // SmartDashboard.putStringArray(key, value);
   }
 
   @Override
@@ -62,6 +65,7 @@ public class SendableCommandGroup extends CommandGroupBase {
     int currentCommandIndex = getCurrentCommandIndex();
     if(currentCommandIndex <= -1) {
       setCurrentCommandIndex(0);
+      currentCommandIndex = 0;
     }else if(currentCommandIndex > m_commands.size()){
       return;
     }
@@ -113,11 +117,11 @@ public class SendableCommandGroup extends CommandGroupBase {
   }
 
   protected final void setCurrentCommandIndex(int index){
-    SmartDashboard.putNumber(this.getName()+"CurrentCommandIndex", index);
+    SmartDashboard.putNumber(getName()+"CurrentCommandIndex", index);
   }
 
   protected final int getCurrentCommandIndex(){
-      return (int) SmartDashboard.getNumber(this.getName()+"CurrentCommandIndex",-20);
+      return (int) SmartDashboard.getNumber(getName()+"CurrentCommandIndex",-20);
   }
 
   protected final void itterateCurrentCommandIndex(){

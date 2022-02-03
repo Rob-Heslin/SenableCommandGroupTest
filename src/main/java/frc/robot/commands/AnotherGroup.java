@@ -6,12 +6,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.ResumableCommandGroup;
+import edu.wpi.first.wpilibj2.command.SendableCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AnotherGroup extends ResumableCommandGroup {
+public class AnotherGroup extends SendableCommandGroup {
   /** Creates a new TestGroup. */
   public AnotherGroup() {
     // Add your commands in the addCommands() call, e.g.
