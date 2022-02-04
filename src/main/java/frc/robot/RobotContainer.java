@@ -13,6 +13,7 @@ import frc.robot.commands.TestGroup;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.IterateSendableGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
@@ -33,8 +34,9 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     SmartDashboard.putData("RunMe",testGroup);
-    SmartDashboard.putData("MeAlso",anotherGroup);
-    // SmartDashboard.putData(TestGroup.onePrev());
+    // SmartDashboard.putData("MeAlso",anotherGroup);
+    SmartDashboard.putData(testGroup.iterateFoward());
+    SmartDashboard.putData(testGroup.iterateBackward());
     // SmartDashboard.putData(new InstantCommand(TestGroup::onePrevious,m_exampleSubsystem));
     // Configure the button bindings
     configureButtonBindings();

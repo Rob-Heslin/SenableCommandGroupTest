@@ -152,7 +152,7 @@ public class ResumableCommandGroup extends CommandGroupBase{
   }
 
   /**
-   * this also doesn't work
+   * this might work, runsWhenDisbale might be at fault
    */
   class CallPrev extends CommandBase{
     @Override
@@ -163,5 +163,6 @@ public class ResumableCommandGroup extends CommandGroupBase{
       postCurrentCommand();
     }
     public boolean isFinished(){return true;}
+    public boolean runsWhenDisabled(){return true;}
   }
 }
