@@ -29,7 +29,7 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   TestGroup testGroup = new TestGroup();
-  AnotherGroup anotherGroup = new AnotherGroup();
+  // AnotherGroup anotherGroup = new AnotherGroup();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
