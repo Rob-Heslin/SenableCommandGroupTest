@@ -35,9 +35,10 @@ public class RobotContainer {
   public RobotContainer() {
     SmartDashboard.putData("RunMe",testGroup);
     // SmartDashboard.putData("MeAlso",anotherGroup);
-    SmartDashboard.putData(testGroup.iterateFoward());
-    SmartDashboard.putData(testGroup.iterateBackward());
-    // SmartDashboard.putData(new InstantCommand(TestGroup::onePrevious,m_exampleSubsystem));
+    SmartDashboard.putData(testGroup.iterateFowardCommand());
+    SmartDashboard.putData(testGroup.iterateBackwardCommand());
+    SmartDashboard.putData(testGroup.resetCommandCommand());
+    
     // Configure the button bindings
     configureButtonBindings();
   }
